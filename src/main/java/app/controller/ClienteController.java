@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import app.entity.Cliente;
-
+import app.service.ClienteService;
 import app.service.ClienteServiceImpl;
 import app.util.ConverterUtil;
 import app.util.CustomErrorType;
@@ -31,7 +31,9 @@ public class ClienteController {
 	public static final Logger logger = LoggerFactory.getLogger(ClienteController.class);
 
 	@Autowired
-	ClienteServiceImpl clienteService;
+	ClienteService clienteService = new ClienteServiceImpl();
+	
+	
 
 	// Lista todos os Clientes
 	@ApiOperation(value = "Lista todos os Clientes")

@@ -1,31 +1,21 @@
 package app.service;
 
-import app.entity.Cliente;
-import app.repository.ClienteRepository;
-import app.util.ConverterUtil;
-
-import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.entity.Cliente;
+import app.repository.ClienteRepository;
+
 @Service
-public class ClienteServiceImpl {
+public class ClienteServiceImpl implements ClienteService{
 
     @Autowired
-    private final ClienteRepository repository;
+    private ClienteRepository repository;
+    
 
-    @Autowired
-    public ClienteServiceImpl(ClienteRepository repository) {
-        this.repository = repository;
-    }
-
-    public Cliente findClienteById(Long id) {
+	public Cliente findClienteById(Long id) {
         return repository.findById(id).orElse(new Cliente());
     }
 

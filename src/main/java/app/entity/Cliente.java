@@ -37,6 +37,14 @@ public class Cliente  implements Serializable{
         this.password = password;
         this.porcentagem = porcentagem;
     }
+    
+    public Cliente(Long id, String nome, String password, String porcentagem) {
+        super();
+        this.id = id;
+        this.nome = nome;
+        this.password = password;
+        this.porcentagem = porcentagem;
+    }
 
     public Long getId() {
         return id;
