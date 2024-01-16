@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>app</groupId>
-	<artifactId>spring-app</artifactId>
+	<artifactId>spring-cliente-angularjs-app</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
 
