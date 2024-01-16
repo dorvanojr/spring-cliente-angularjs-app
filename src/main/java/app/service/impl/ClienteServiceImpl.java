@@ -1,4 +1,4 @@
-package app.service;
+package app.service.impl;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import app.entity.Cliente;
 import app.repository.ClienteRepository;
+import app.service.ClienteService;
 
 @Service
 public class ClienteServiceImpl implements ClienteService{

@@ -17,7 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import app.entity.Cliente;
 import app.service.ClienteService;
-import app.service.ClienteServiceImpl;
+import app.service.impl.ClienteServiceImpl;
 import app.util.ConverterUtil;
 import app.util.CustomErrorType;
 import io.swagger.annotations.Api;
@@ -31,9 +31,7 @@ public class ClienteController {
 	public static final Logger logger = LoggerFactory.getLogger(ClienteController.class);
 
 	@Autowired
-	ClienteService clienteService = new ClienteServiceImpl();
-	
-	
+	ClienteService clienteService;
 
 	// Lista todos os Clientes
 	@ApiOperation(value = "Lista todos os Clientes")
@@ -47,7 +45,7 @@ public class ClienteController {
 	}
 
 	// Pega um Cliente
-	@ApiOperation(value = "Pega um Cliente")
+	@ApiOperation(value = "Pega um Cliente por ID ")
 	@RequestMapping(value = "/cliente/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getCliente(@PathVariable("id") Long id) {
 		Cliente cliente = clienteService.findClienteById(id);
@@ -98,7 +96,7 @@ public class ClienteController {
 	}
 
 	// Exclui o Cliente
-	@ApiOperation(value = "Exclui o Cliente")
+	@ApiOperation(value = "Exclui o Cliente by ID")
 	@RequestMapping(value = "/cliente/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteCliente(@PathVariable("id") Long id) {
 		Cliente cliente = clienteService.findClienteById(id);

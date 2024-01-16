@@ -28,7 +28,7 @@ import app.controller.ClienteController;
 import app.entity.Cliente;
 import app.repository.ClienteRepository;
 import app.service.ClienteService;
-import app.service.ClienteServiceImpl;
+import app.service.impl.ClienteServiceImpl;
 
 /**
  *

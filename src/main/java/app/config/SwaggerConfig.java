@@ -38,7 +38,7 @@ public class SwaggerConfig {
                 "Cadastro de Clientes",
                 "1.0",
                 "Terms of Service",
-                new Contact("Angular-Spring-Boot", "", ""),
+                new Contact("AngularJS-Cliente-Spring-Boot", "", ""),
                 "Apache License Version 2.0",
                 "https://www.apache.org/licesen.html", new ArrayList<VendorExtension>()
         );
