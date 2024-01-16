@@ -12,21 +12,12 @@ public class IndexController {
     public String index() {
         return "index";
     }
-
-    @RequestMapping("/login")
-    public String login() {
-        return "login";
-    }
     
     @RequestMapping("/clientes")
     public String clientes() {
         return "clientes";
     }
         
-    @RequestMapping("/usuarios")
-    public String usuarios(ModelMap modal) {
-        return "usuarios";
-    }
 
     @RequestMapping("/partials/{page}")
     public String partialHandler(@PathVariable("page") final String page) {

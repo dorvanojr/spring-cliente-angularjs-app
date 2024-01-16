@@ -2,7 +2,13 @@ package app.service;
 
 import app.entity.Cliente;
 import app.repository.ClienteRepository;
+import app.util.ConverterUtil;
+
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +36,7 @@ public class ClienteServiceImpl {
     public Cliente findByNome(String nome) {
         return repository.findByNome(nome);
     }
+    
 
     public void saveCliente(Cliente cliente) {
         repository.save(cliente);
@@ -51,19 +58,6 @@ public class ClienteServiceImpl {
         return findByNome(cliente.getNome()) != null;
     }
 
-    public Cliente addRisk(Cliente cliente) {
-        int res1 = cliente.getRendMensal().compareTo(new BigDecimal("2000"));
-        int res2 = cliente.getRendMensal().compareTo(new BigDecimal("8000"));
-
-        if (res1 <= 0) {
-            cliente.setRisco("C");
-        } else if (res1 > 0 && res2 <= 0) {
-            cliente.setRisco("B");
-        } else {
-            cliente.setRisco("A");
-        }
-
-        return cliente;
-    }
+ 
 
 }

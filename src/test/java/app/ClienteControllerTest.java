@@ -47,7 +47,7 @@ public class ClienteControllerTest {
     @Test
     public void createCliente() {
         // Cria objeto cliente
-        Cliente cliente = new Cliente("Cliente", new BigDecimal("2000.50"), "Endereço");
+        Cliente cliente = new Cliente("Cliente", "123456", "10%");
 
         // Valida id do cliente
         assertNull(cliente.getId());
@@ -60,9 +60,6 @@ public class ClienteControllerTest {
 
         // Lista todos os clientes
         clienteService.findAllByOrderByNomeAsc();
-
-        // Adiciona o risco
-        clienteService.addRisk(cliente);
 
         // Salva os dados
         clienteService.saveCliente(cliente);

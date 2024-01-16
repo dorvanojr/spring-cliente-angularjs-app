@@ -4,7 +4,7 @@
         <i ng-class="ctrl.class"></i> Cliente
     </button>
     <br><br>
-   <!--  <div class="panel panel-default collapse">
+    <div class="panel panel-default collapse">
         <div class="panel-body">
             <div class="alert alert-success" role="alert" ng-if="ctrl.successMessage">{{ctrl.successMessage}}</div>
             <div class="alert alert-danger" role="alert" ng-if="ctrl.errorMessage">{{ctrl.errorMessage}}</div>
@@ -15,10 +15,7 @@
                         <input type="text" ng-model="ctrl.cliente.nome" name="nome" class="form-control" placeholder="Nome" />
                     </div>
                     <div class="form-group">
-                        <input type="text" ng-model="ctrl.cliente.rendMensal" name="rendMensal" class="form-control" placeholder="Rend. Mensal" />
-                    </div>
-                    <div class="form-group">
-                        <input type="text" ng-model="ctrl.cliente.endereco" name="endereco" class="form-control" placeholder="Endereço" />
+                        <input type="password" ng-model="ctrl.cliente.password" name="senha" class="form-control" placeholder="Senha" />
                     </div>
                 </div>
                 <div class="row">
@@ -33,7 +30,7 @@
                 </div>
             </form>
         </div>	
-    </div>-->
+    </div>
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="row">
@@ -49,21 +46,16 @@
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
-                        <th>Rend. Mensal</th>
-                        <th>Risco</th>
-                        <th>Endereço</th>
-                        <th class="text-center">Ações</th>
+                        <th>Porcentagem</th>
+                        <th class="text-center">A��es</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="cliente in filterData = (ctrl.getAllClientes()| filter: pesquisar) | limitTo: 5:5*(page-1)">
                         <td>{{cliente.id}}</td>
                         <td>{{cliente.nome}}</td>
-                        <td>{{cliente.rendMensal}}</td>
-                        <td>{{cliente.risco}}</td>
-                        <td>{{cliente.endereco}}</td>
+                        <td>{{cliente.porcentagem}}</td>
                         <td class="col-actions">
-                            <a ng-click="ctrl.clienteEmprestimo(cliente.id)" class="btn btn-default" data-toggle="modal" data-target="#simulacao"><i class="fa fa-dollar"></i> Simular</a>
                             <a ng-click="ctrl.editCliente(cliente.id)" class="btn btn-primary"><i class="fa fa-edit"></i> Editar</a>
                             <a sec:authorize="hasAuthority('ADMIN')" ng-click="ctrl.removeCliente(cliente.id)" class="btn btn-danger"><i class="fa fa-trash"></i> Excluir</a>
                         </td>
@@ -82,53 +74,3 @@
         </div>
     </div>
 </div>
-<!-- 
-<div class="modal fade" id="simulacao" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Simular Empréstimo</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="alert alert-danger" role="alert" ng-if="ctrl.errorMessage">{{ctrl.errorMessage}}</div>
-                    <form ng-submit="ctrl.submitEmprestimo()" name="emprestimoForm" class="form-horizontal">
-                        <input type="hidden" ng-model="ctrl.cliente.id" />
-                        <div class="form-panel">
-                            <div class="form-group">
-                                <input type="text" ng-model="ctrl.emprestimo.valor" name="valor" class="form-control" placeholder="Valor" />
-                            </div>
-                            <div class="form-group">
-                                <input type="text" ng-model="ctrl.emprestimo.periodoMensal" name="periodoMensal" class="form-control" placeholder="Período Mensal" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-actions float-left">
-                                <button type="submit" class="btn btn-success" ng-disabled="emprestimoForm.$invalid || emprestimoForm.$pristine">
-                                    <i class="fa fa-dollar"></i> Simular
-                                </button>
-                                <button type="button" ng-click="ctrl.resetEmprestimo()" class="btn btn-default" ng-disabled="emprestimoForm.$pristine">
-                                    <i class="fa fa-eraser"></i> Limpar
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>	
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    Cliente: {{ctrl.cliente.nome}} <br>
-                    Risco: {{ctrl.cliente.risco}} <br>
-
-                    Capital Empréstimo: {{ctrl.resultadoEmprestimo().valor}} <br>
-                    Período Mensal: {{ctrl.resultadoEmprestimo().periodoMensal}} <br><br>
-
-                    <strong>Total do Empréstimo: R$ {{ctrl.resultadoEmprestimo().total}}</strong> <br>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>-->

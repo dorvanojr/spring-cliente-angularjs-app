@@ -18,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import app.entity.Cliente;
 
 import app.service.ClienteServiceImpl;
+import app.util.ConverterUtil;
 import app.util.CustomErrorType;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -49,8 +50,8 @@ public class ClienteController {
 	public ResponseEntity<?> getCliente(@PathVariable("id") Long id) {
 		Cliente cliente = clienteService.findClienteById(id);
 		if (cliente == null) {
-			logger.error("Usuário com id {} não encontrado.", id);
-			return new ResponseEntity(new CustomErrorType("Usuário com id " + id + " não encontrado."),
+			logger.error("Cliente com id {} não encontrado.", id);
+			return new ResponseEntity(new CustomErrorType("Cliente com id " + id + " não encontrado."),
 					HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
@@ -67,8 +68,11 @@ public class ClienteController {
 					HttpStatus.CONFLICT);
 		}
 
-		// Adiciona o risco
-		clienteService.addRisk(cliente);
+		 String senha = cliente.getPassword();
+ 	     
+	     cliente.setPassword(ConverterUtil.criptografaSenha(cliente.getPassword()));
+	     cliente.setPorcentagem(ConverterUtil.senhaForte(senha));
+   
 
 		clienteService.saveCliente(cliente);
 		HttpHeaders headers = new HttpHeaders();
@@ -86,9 +90,6 @@ public class ClienteController {
 					new CustomErrorType("Não é possível atualizar. Cliente com id " + id + " não encontrado."),
 					HttpStatus.NOT_FOUND);
 		}
-
-		// Atualiza o risco
-		clienteService.addRisk(cliente);
 
 		clienteService.updateCliente(cliente);
 		return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
@@ -117,43 +118,5 @@ public class ClienteController {
 		return new ResponseEntity<Cliente>(HttpStatus.NO_CONTENT);
 	}
 
-	// Simula Emprestimo
-//	@ApiOperation(value = "Simula Emprestimo")
-//	@RequestMapping(value = "/emprestimo/{id}", method = RequestMethod.PUT)
-//	public ResponseEntity<?> simularEmprestimo(@PathVariable("id") Long id, @RequestBody Emprestimo emprestimo) {
-//		// Localiza o cliente
-//		Cliente cliente = clienteService.findClienteById(id);
-//		if (cliente == null) {
-//			logger.error("Não é possível simular empréstimo. Cliente com id {} não encontrado.", id);
-//			return new ResponseEntity(
-//					new CustomErrorType("Não é possível atualizar. Cliente com id " + id + " não encontrado."),
-//					HttpStatus.NOT_FOUND);
-//		}
-//
-//		// Pega a taxa para emprestimo
-//		Double taxa = taxaEmprestimo(cliente.getRisco(), emprestimo.getValor());
-//		// Calcula o total do emprestimo em juros compostos
-//		// Double total = emprestimo.getValor() * Math.pow((1 + taxa/100),
-//		// emprestimo.getPeriodoMensal());
-//		// Calcula o total do emprestimo em juros simples
-//		Double total = emprestimo.getValor() + ((emprestimo.getValor() * taxa / 100) * emprestimo.getPeriodoMensal());
-//		// Adiciona o valor total
-//		emprestimo.setTotal(total);
-//
-//		logger.info("Total do emprestimo " + total);
-//		return new ResponseEntity<Emprestimo>(emprestimo, HttpStatus.OK);
-//	}
 
-	// Calcula a taxa de empréstimo
-	public Double taxaEmprestimo(String risco, Double valor) {
-		Double taxa;
-		if (risco.equals("A")) {
-			taxa = 1.9;
-		} else if (risco.equals("B")) {
-			taxa = 5.0;
-		} else {
-			taxa = 10.0;
-		}
-		return taxa;
-	}
 }
