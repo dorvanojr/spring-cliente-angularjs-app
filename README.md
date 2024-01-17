@@ -46,9 +46,9 @@ Crie um banco de dados com o nome "dbc" no seu Mysql. Você encontra o dump na r
 ```
 $ mysql -u <your user> -p <your password>
 
-mysql> create database `dbc`;
+mysql> create database `dbteste`;
 
-mysql> use `dbc`;
+mysql> use `dbteste`;
 
 mysql> source dbc.sql
 
