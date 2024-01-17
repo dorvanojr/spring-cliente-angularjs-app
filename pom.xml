@@ -10,7 +10,7 @@
 	<packaging>jar</packaging>
 
 	<name>spring-cliente-angularjs-app</name>
-	<description>Spring Boot com AngularJS</description>
+	<description>Crud Spring Boot com AngularJS</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

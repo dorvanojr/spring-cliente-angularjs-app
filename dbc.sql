@@ -29,12 +29,11 @@ SET time_zone = "+00:00";
 --
 
 DROP TABLE IF EXISTS `cliente`;
-CREATE TABLE IF NOT EXISTS `cliente` (
+CREATE TABLE IF NOT EXISTS dbteste.`cliente` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(80) COLLATE utf8_bin NOT NULL,
-  `rend_mensal` decimal(10,2) NOT NULL,
-  `risco` enum('A','B','C') COLLATE utf8_bin NOT NULL,
-  `endereco` varchar(200) COLLATE utf8_bin DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `porcentagem` varchar(200) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 

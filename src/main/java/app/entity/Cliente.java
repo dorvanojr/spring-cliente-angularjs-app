@@ -1,5 +1,6 @@
 package app.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
@@ -7,35 +8,42 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "cliente", catalog = "dbteste", schema = "dbteste")
-public class Cliente {
+public class Cliente  implements Serializable{
 
-    @Id
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Size(min = 3)
     @Column(name = "nome")
     private String nome;
 
-    @DecimalMin(value = "1")
-    @Column(name = "rend_mensal", precision = 10, scale = 2)
-    private BigDecimal rendMensal;
+    @Column(name = "password")
+    private String password;
 
-    @Column(name = "risco")
-    private String risco;
+    @Column(name = "porcentagem")
+    private String porcentagem;
 
-    @Column(name = "endereco")
-    private String endereco;
+   
 
     public Cliente() {
     }
 
-    public Cliente(String nome, BigDecimal rendMensal, String endereco) {
+    public Cliente(String nome, String password, String porcentagem) {
         super();
         this.nome = nome;
-        this.rendMensal = rendMensal;
-        this.endereco = endereco;
+        this.password = password;
+        this.porcentagem = porcentagem;
+    }
+    
+    public Cliente(Long id, String nome, String password, String porcentagem) {
+        super();
+        this.id = id;
+        this.nome = nome;
+        this.password = password;
+        this.porcentagem = porcentagem;
     }
 
     public Long getId() {
@@ -54,28 +62,22 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public BigDecimal getRendMensal() {
-        return rendMensal;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setRendMensal(BigDecimal rendMensal) {
-        this.rendMensal = rendMensal;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getRisco() {
-        return risco;
-    }
+	public String getPorcentagem() {
+		return porcentagem;
+	}
 
-    public void setRisco(String risco) {
-        this.risco = risco;
-    }
+	public void setPorcentagem(String porcentagem) {
+		this.porcentagem = porcentagem;
+	}
 
-    public String getEndereco() {
-        return endereco;
-    }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
 
 }

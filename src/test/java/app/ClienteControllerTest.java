@@ -5,31 +5,53 @@
  */
 package app;
 
-import app.entity.Cliente;
-import app.service.ClienteServiceImpl;
-import java.math.BigDecimal;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+
+import app.controller.ClienteController;
+import app.entity.Cliente;
+import app.repository.ClienteRepository;
+import app.service.ClienteService;
+import app.service.impl.ClienteServiceImpl;
 
 /**
  *
  * @author Danilo
  */
+@WebMvcTest(ClienteController.class)
 public class ClienteControllerTest {
-
-    @Autowired
-    ClienteServiceImpl clienteService;
+	
+	@InjectMocks
+    ClienteService clienteService = new ClienteServiceImpl();
+	
+	
+	@Mock
+	ClienteRepository repository;
 
     public ClienteControllerTest() {
     }
+    
+
 
     @BeforeClass
     public static void setUpClass() {
+    	
     }
 
     @AfterClass
@@ -38,6 +60,7 @@ public class ClienteControllerTest {
 
     @Before
     public void setUp() {
+    	 MockitoAnnotations.initMocks(this);
     }
 
     @After
@@ -47,11 +70,13 @@ public class ClienteControllerTest {
     @Test
     public void createCliente() {
         // Cria objeto cliente
-        Cliente cliente = new Cliente("Cliente", new BigDecimal("2000.50"), "Endereço");
+        Cliente cliente = new Cliente("Cliente", "123456", "10%");
 
         // Valida id do cliente
         assertNull(cliente.getId());
         
+        when(repository.findByNome(cliente.getNome())).thenReturn(cliente);
+ 
         // Verifica se o cliente já existe
         clienteService.isClienteExist(cliente);
         
@@ -61,16 +86,72 @@ public class ClienteControllerTest {
         // Lista todos os clientes
         clienteService.findAllByOrderByNomeAsc();
 
-        // Adiciona o risco
-        clienteService.addRisk(cliente);
-
         // Salva os dados
         clienteService.saveCliente(cliente);
     }
     
     @Test
     public void deleteCliente() {
+    	
+    	repository.deleteById(1L);
         // Deleta cliente
         clienteService.deleteClienteById(new Long(1));        
+    }
+    
+    @Test
+    public void listAllClientes() {
+       	Cliente cliente = new Cliente("Cliente", "123456", "10%");
+    	
+    	
+    	List<Cliente> clientes = new ArrayList<>();
+    	clientes.add(cliente);
+ 
+    	
+    	
+    	when(repository.findAllByOrderByNomeAsc()).thenReturn(clientes);
+    	
+    	
+    	List<Cliente> lista = clienteService.findAllByOrderByNomeAsc();
+    	
+    	assertEquals(1, lista.size());
+    }
+    
+    
+    @Test
+    public void getCliente() {
+       	Cliente cliente = new Cliente(1L,"Cliente", "123456", "10%");
+    	
+     
+    	
+    	when(repository.findById(1L)).thenReturn(Optional.ofNullable(cliente));
+    	
+    	
+    	Cliente cliente1 = clienteService.findClienteById(1L);
+    	
+    	assertEquals("1", cliente1.getId().toString());
+    }
+    
+    @Test
+    public void updateCliente() {
+    	Cliente cliente = new Cliente(1L,"Cliente", "123456", "10%");
+    	
+    	
+    	when(repository.findById(1L)).thenReturn(Optional.ofNullable(cliente));
+    	
+    	
+    	Cliente cliente1 = clienteService.findClienteById(1L);
+        
+    	assertEquals("1", cliente1.getId().toString());
+    	
+    	clienteService.updateCliente(cliente);
+    }
+    
+    
+    @Test
+    public void deleteAllClientes() {
+    	
+    	repository.deleteAll();
+    	
+    	clienteService.deleteAllClientes();
     }
 }

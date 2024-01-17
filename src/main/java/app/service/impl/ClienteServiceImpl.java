@@ -1,25 +1,22 @@
-package app.service;
+package app.service.impl;
 
-import app.entity.Cliente;
-import app.repository.ClienteRepository;
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.entity.Cliente;
+import app.repository.ClienteRepository;
+import app.service.ClienteService;
+
 @Service
-public class ClienteServiceImpl {
+public class ClienteServiceImpl implements ClienteService{
 
     @Autowired
-    private final ClienteRepository repository;
+    private ClienteRepository repository;
+    
 
-    @Autowired
-    public ClienteServiceImpl(ClienteRepository repository) {
-        this.repository = repository;
-    }
-
-    public Cliente findClienteById(Long id) {
+	public Cliente findClienteById(Long id) {
         return repository.findById(id).orElse(new Cliente());
     }
 
@@ -30,6 +27,7 @@ public class ClienteServiceImpl {
     public Cliente findByNome(String nome) {
         return repository.findByNome(nome);
     }
+    
 
     public void saveCliente(Cliente cliente) {
         repository.save(cliente);
@@ -51,19 +49,6 @@ public class ClienteServiceImpl {
         return findByNome(cliente.getNome()) != null;
     }
 
-    public Cliente addRisk(Cliente cliente) {
-        int res1 = cliente.getRendMensal().compareTo(new BigDecimal("2000"));
-        int res2 = cliente.getRendMensal().compareTo(new BigDecimal("8000"));
-
-        if (res1 <= 0) {
-            cliente.setRisco("C");
-        } else if (res1 > 0 && res2 <= 0) {
-            cliente.setRisco("B");
-        } else {
-            cliente.setRisco("A");
-        }
-
-        return cliente;
-    }
+ 
 
 }
