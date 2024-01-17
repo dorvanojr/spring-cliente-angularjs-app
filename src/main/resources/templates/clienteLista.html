@@ -55,7 +55,7 @@
                         <td>{{cliente.id}}</td>
                         <td>{{cliente.nome}}</td>
                         <td>
-                            {{cliente.porcentagem}}% &nbsp;
+                            {{cliente.porcentagem}}% &nbsp;&nbsp;
                             <a ng-if="cliente.porcentagem == 100" class="btn btn-success">&nbsp;&nbsp;Forte&nbsp;&nbsp;</a>
                             <a ng-if="cliente.porcentagem == 10" class="btn btn-danger">&nbsp;&nbsp;&nbsp;Ruim&nbsp;&nbsp;&nbsp;</a>
                             <a ng-if="cliente.porcentagem >= 25 && cliente.porcentagem <= 50" class="btn btn-warning">Mediana</a>
