@@ -5,6 +5,12 @@ body {
     padding: 0;
     margin: 0; 
 }
+
+ .verde-claro  {
+    background-color:  green;
+    color: white;   
+}
+
 body.layout-scroll-block {
     overflow: hidden; 
 }
@@ -171,6 +177,23 @@ fieldset {
     border-radius: 30px 30px 30px 30px !important;
     box-shadow: 1px 3px 5px 0px rgba(57,181,74,0.5);
 }
+
+.btn-warning {
+    background-color: #dfdf00 !important;
+    color: #fff !important;
+    border: 1px solid #dfdf00 !important;
+    border-radius: 30px 30px 30px 30px !important;
+    box-shadow: 1px 3px 5px 0px rgba(57,181,74,0.5);
+}
+
+.btn-verde {
+    background-color: #91f000 !important;
+    color: #fff !important;
+    border: 1px solid #91f000 !important;
+    border-radius: 30px 30px 30px 30px !important;
+    box-shadow: 1px 3px 5px 0px rgba(57,181,74,0.5);
+}
+
 .btn-default {
     background-color: #fff !important;
     color: #39B54A !important;

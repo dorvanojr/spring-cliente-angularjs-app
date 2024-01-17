@@ -47,17 +47,23 @@
                         <th>ID</th>
                         <th>Nome</th>
                         <th>Porcentagem</th>
-                        <th class="text-center">Ações</th>
+                        <th class="text-center">Aï¿½ï¿½es</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="cliente in filterData = (ctrl.getAllClientes()| filter: pesquisar) | limitTo: 5:5*(page-1)">
                         <td>{{cliente.id}}</td>
                         <td>{{cliente.nome}}</td>
-                        <td>{{cliente.porcentagem}}</td>
+                        <td>
+                            {{cliente.porcentagem}}% &nbsp;
+                            <a ng-if="cliente.porcentagem == 100" class="btn btn-success">&nbsp;&nbsp;Forte&nbsp;&nbsp;</a>
+                            <a ng-if="cliente.porcentagem == 10" class="btn btn-danger">&nbsp;&nbsp;&nbsp;Ruim&nbsp;&nbsp;&nbsp;</a>
+                            <a ng-if="cliente.porcentagem >= 25 && cliente.porcentagem <= 50" class="btn btn-warning">Mediana</a>
+                            <a ng-if="cliente.porcentagem >= 51 && cliente.porcentagem < 100"  class="btn btn-verde">&nbsp;&nbsp;&nbsp;Bom&nbsp;&nbsp;&nbsp;</a>
+                        </td>
                         <td class="col-actions">
                             <a ng-click="ctrl.editCliente(cliente.id)" class="btn btn-primary"><i class="fa fa-edit"></i> Editar</a>
-                            <a sec:authorize="hasAuthority('ADMIN')" ng-click="ctrl.removeCliente(cliente.id)" class="btn btn-danger"><i class="fa fa-trash"></i> Excluir</a>
+                            <a ng-click="ctrl.removeCliente(cliente.id)" class="btn btn-danger"><i class="fa fa-trash"></i> Excluir</a>
                         </td>
                     </tr>
                 </tbody>
